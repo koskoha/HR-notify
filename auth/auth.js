@@ -1,10 +1,10 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = require('passport-jwt').Strategy;
-// We use this to extract the JWT sent by the user
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
 const UserModel = require('../models/user');
+const config = require('../config/dev');
 
 // Create a passport middleware to handle user registration
 passport.use(
@@ -62,15 +62,21 @@ passport.use(
 passport.use(
   new JWTStrategy(
     {
-      jwtFromRequest: req => req.cookies.jwt,
-      secretOrKey: 'secret',
+      jwtFromRequest: ExtractJWT.fromHeader('authorization'),
+      secretOrKey: config.secret,
     },
     (jwtPayload, done) => {
-      if (Date.now() > jwtPayload.expires) {
-        return done('jwt expired');
-      }
+      UserModel.findById(jwtPayload.sub, function(err, user) {
+        if (err) {
+          return done(err, false);
+        }
 
-      return done(null, jwtPayload);
+        if (user) {
+          done(null, user);
+        } else {
+          done(null, user);
+        }
+      });
     }
   )
 );

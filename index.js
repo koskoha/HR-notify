@@ -15,6 +15,7 @@ require('./auth/auth');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ type: '*/*' }));
 
 const routes = require('./routes/routes');
 const secureRoute = require('./routes/secure-routes');

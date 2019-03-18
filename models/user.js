@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
 const { Schema } = mongoose;
 
@@ -10,6 +10,7 @@ const UserSchema = new Schema({
     unique: true,
     dropDups: true,
     required: true,
+    lowercase: true,
   },
   // salted and hashed using bcrypt
   password: {
@@ -21,14 +22,21 @@ const UserSchema = new Schema({
 // This is called a pre-hook, before the user information is saved in the database
 // this function will be called, we'll get the plain text password, hash it and store it.
 UserSchema.pre('save', async function(next) {
-  // 'this' refers to the current document about to be saved
   const user = this;
-  // Hash the password with a salt round of 10, the higher the rounds the more secure, but the slower
-  if (user.isModified('password')) {
-    const hash = await bcrypt.hashSync(user.password, 10);
-    this.password = hash;
-  }
-  next();
+
+  bcrypt.genSalt(10, function(err, salt) {
+    if (err) {
+      return next(err);
+    }
+    bcrypt.hash(user.password, salt, null, function(err, hash) {
+      if (err) {
+        return next(err);
+      }
+
+      user.password = hash;
+      next();
+    });
+  });
 });
 
 // We'll use this later on to make sure that the user trying to log in has the correct credentials
