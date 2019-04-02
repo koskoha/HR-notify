@@ -3,24 +3,38 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const morgan = require('morgan');
+const cors = require('cors');
+const errorHandler = require('errorhandler');
+const flash = require('connect-flash');
 const keys = require('./config/keys');
-const UserModel = require('./models/user');
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 mongoose.connection.on('error', error => console.log(error));
 mongoose.Promise = global.Promise;
+mongoose.set('useCreateIndex', true);
 
-require('./auth/auth');
+const isProduction = process.env.NODE_ENV === 'production';
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan('combined'));
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: '*/*' }));
+app.use(flash());
 
-const routes = require('./routes/routes');
+if (!isProduction) {
+  app.use(errorHandler());
+}
+
+require('./models/user');
+require('./services/passport');
+
 const secureRoute = require('./routes/secure-routes');
+const auth = require('./routes/authRoutes');
 
-if (process.env.NODE_ENV === 'production') {
+if (isProduction) {
   // eslint-disable-next-line global-require
   const path = require('path');
   app.use(express.static(path.join(__dirname, 'client/build')));
@@ -30,13 +44,33 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.use('/', routes);
+// app.use('/', authRoutes);
+app.use('/', auth);
 // We plugin our jwt strategy as a middleware so only verified users can access this route
-app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
+app.use('/', passport.authenticate('jwt', { session: false }), secureRoute);
 
-app.use(function(err, req, res, next) {
+if (!isProduction) {
+  app.use((err, req, res) => {
+    res.status(err.status || 500);
+
+    res.json({
+      errors: {
+        message: err.message,
+        error: err,
+      },
+    });
+  });
+}
+
+app.use((err, req, res) => {
   res.status(err.status || 500);
-  res.json({ error: err });
+
+  res.json({
+    errors: {
+      message: err.message,
+      error: {},
+    },
+  });
 });
 
 const PORT = process.env.PORT || 5000;

@@ -1,12 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import jwtDecode from 'jwt-decode';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
+import { setCurrentUser, logoutUser } from './actions/authActions';
+import setAuthTokenInHeader from './utils/setAuthTokenInHeader';
+import App from './components/App';
+import store from './store';
+import { API_BASE_URL } from './config';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// Set base URL in request
+axios.defaults.baseURL = API_BASE_URL;
+// Check the token
+if (localStorage.jwtToken) {
+  // Set token header in Axios
+  setAuthTokenInHeader(localStorage.jwtToken);
+  // Set baseURL in header
+  const user = jwtDecode(localStorage.jwtToken);
+  // Install user into store
+  store.dispatch(setCurrentUser(user));
+  // Check for expired token
+  const currentTime = Date.now() / 1000;
+  if (user.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+  }
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
+);
