@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import swal from 'sweetalert2';
+import alert from 'sweetalert2';
 import KFAccountInput from './KFAccountInput';
-import { loginUser, clearErrors } from '../../actions/authActions';
+import { loginUser, clearErrors } from '../../actions/account/authActions';
 
 const styles = theme => ({
   container: {
@@ -75,14 +75,17 @@ class LoginForm extends Component {
 	 if the user has already logged in, redirect to home page.
 	 */
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      swal({
-        title: 'You are already logged in!',
-        showConfirmButton: false,
-        timer: 1000,
-      }).then(() => {
-        this.props.history.push('/');
-      });
+    const { auth, history } = this.props;
+    if (auth.isAuthenticated) {
+      alert
+        .fire({
+          title: 'You are already logged in!',
+          showConfirmButton: false,
+          timer: 1000,
+        })
+        .then(() => {
+          history.push('/employee');
+        });
     }
   }
 
@@ -92,7 +95,7 @@ class LoginForm extends Component {
 
   UNSAFE_componentWillReceiveProps(nextProps, nextState) {
     if (nextProps.auth.isAuthenticated) {
-      nextProps.history.push('/');
+      nextProps.history.push('/employee/list');
     }
 
     if (nextProps.errors) {
@@ -106,9 +109,10 @@ class LoginForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const { email, password } = this.state;
     const userData = {
-      email: this.state.email,
-      password: this.state.password,
+      email,
+      password,
     };
     this.props.loginUser(userData);
   }
@@ -163,7 +167,6 @@ LoginForm.propTypes = {
   classes: PropTypes.object.isRequired,
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
   clearErrors: PropTypes.func.isRequired,
 };
 

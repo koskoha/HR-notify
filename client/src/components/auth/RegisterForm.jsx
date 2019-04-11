@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { registerUser, clearErrors } from '../../actions/authActions';
+import { registerUser, clearErrors } from '../../actions/account/authActions';
 import KFAccountInput from './KFAccountInput';
 
 const styles = theme => ({

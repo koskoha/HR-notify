@@ -4,8 +4,6 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import './App.css';
 import MainRoute from '../routers/MainRouter';
-// import Header from './Header';
-// import Footer from './Footer';
 
 class App extends Component {
   render() {

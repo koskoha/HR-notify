@@ -1,5 +1,4 @@
 import React from 'react';
-import UFO from '../assets/img/ufo.png';
 
 const style = {
   headerContent: {
@@ -31,7 +30,6 @@ class PageNotFound extends React.Component {
             <br />
             The page can not be found.
           </p>
-          <img src={UFO} style={style.imgStyle} alt="page not found" />
           <p style={style.contentStyle}>
             <a href="/">I wanna go Home</a>
           </p>

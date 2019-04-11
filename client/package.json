@@ -16,6 +16,7 @@
     "font-awesome": "^4.7.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.22.0",
+    "mui-datatables": "^2.0.0-beta.59",
     "prettier": "^1.13.7",
     "prop-types": "^15.6.1",
     "ra-data-json-server": "^2.8.3",

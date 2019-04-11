@@ -1,13 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from './types';
-import setAuthTokenInHeader from '../utils/setAuthTokenInHeader';
-
-/**
- * Validate the sign up form
- * @param data - User data
- * @returns boolean is validated
- */
+import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from '../types';
+import setAuthTokenInHeader from '../../utils/setAuthTokenInHeader';
 
 const validate = data => dispatch => {
   const { email, name, password, password2 } = data;
@@ -78,10 +72,10 @@ export const registerUser = (userData, history) => dispatch => {
     sessionStorage.setItem('unactivatedEmail', userData.email);
     axios({
       method: 'post',
-      url: '/users/register',
+      url: '/register',
       data: userData,
     })
-      .then(() => history.push('/email-sent'))
+      .then(() => history.push('/employee/list'))
       .catch(err =>
         dispatch({
           type: GET_ERRORS,
@@ -100,7 +94,7 @@ export const setCurrentUser = decoded => ({
 // Login and get the token
 export const loginUser = userData => dispatch => {
   axios
-    .post('/users/login', userData)
+    .post('/login', userData)
     .then(res => {
       const { token } = res.data;
       // Save to localStorage
@@ -129,7 +123,7 @@ export const logoutUser = () => dispatch => {
 
 export const getCurrentUserInfo = () => dispatch => {
   axios
-    .get('/users/current')
+    .get('/current')
     .then(res => {
       dispatch(setCurrentUser(res.data));
     })

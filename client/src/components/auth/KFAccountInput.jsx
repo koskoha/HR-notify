@@ -23,7 +23,7 @@ export default function KFAccountInput(props) {
 
 KFAccountInput.propTypes = {
   className: PropTypes.string.isRequired,
-  error: PropTypes.object,
+  error: PropTypes.string,
   id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,

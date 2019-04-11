@@ -5,8 +5,10 @@ import { createLogger } from 'redux-logger';
 // Import the root reducer
 import rootReducer from './reducers/index';
 
+const loggerMiddleware = createLogger();
+
 const initialState = {};
-const middleware = [thunk, createLogger];
+const middleware = [thunk, loggerMiddleware];
 
 // For Redux DevTools in Chrome
 const composeEnhancers =

@@ -18,18 +18,24 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const app = express();
 
+const corsOptions = {
+  origin: keys.frontendHost,
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
 app.use(morgan('combined'));
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: '*/*' }));
-app.use(flash());
+app.use(cors(corsOptions));
 
 if (!isProduction) {
   app.use(errorHandler());
 }
 
 require('./models/user');
-require('./services/passport');
+// require('./services/passport');
+// Passport Config
+require('./auth/passport')(passport);
 
 const secureRoute = require('./routes/secure-routes');
 const auth = require('./routes/authRoutes');
@@ -45,7 +51,7 @@ if (isProduction) {
 }
 
 // app.use('/', authRoutes);
-app.use('/', auth);
+app.use('/api', auth);
 // We plugin our jwt strategy as a middleware so only verified users can access this route
 app.use('/', passport.authenticate('jwt', { session: false }), secureRoute);
 

@@ -5,7 +5,7 @@ import './index.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
-import { setCurrentUser, logoutUser } from './actions/authActions';
+import { setCurrentUser, logoutUser } from './actions/account/authActions';
 import setAuthTokenInHeader from './utils/setAuthTokenInHeader';
 import App from './components/App';
 import store from './store';
