@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Route } from 'react-router-dom';
 import Header from '../header/Header';
 import EmployeeTable from '../employees/EmployeeTable';
-import AddEmployee from '../employees/AddEmployee';
+import AddEmployeeForm from '../employees/AddEmployeeForm';
+import PageNotFound from '../NotFound';
 
 const styles = theme => ({});
 
@@ -13,8 +14,9 @@ class BaseLayout extends Component {
     const { match } = this.props;
     return (
       <Header {...this.props}>
-        <Route path={`${match.url}/list`} component={EmployeeTable} />
-        <Route path={`${match.url}/add`} component={AddEmployee} />
+        <Route exact path={`${match.url}/list`} component={EmployeeTable} />
+        <Route exact path={`${match.url}/add`} component={AddEmployeeForm} />
+        {/* <Route path={`${match.url}/*`} component={PageNotFound} /> */}
       </Header>
     );
   }

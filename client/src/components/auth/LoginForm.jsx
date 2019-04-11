@@ -84,7 +84,7 @@ class LoginForm extends Component {
           timer: 1000,
         })
         .then(() => {
-          history.push('/employee');
+          history.push('/employee/list');
         });
     }
   }

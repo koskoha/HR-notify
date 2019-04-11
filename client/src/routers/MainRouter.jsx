@@ -13,8 +13,8 @@ const MainRoute = props => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={LoginForm} />
-        <Route path="/register" component={RegisterForm} />
-        <Route path="/login" component={LoginForm} />
+        <Route exact path="/register" component={RegisterForm} />
+        <Route exact path="/login" component={LoginForm} />
         <PrivateRoute authed={authed} path="/employee" component={BaseLayout} />>
         <Route component={PageNotFound} />
       </Switch>

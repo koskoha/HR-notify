@@ -11,20 +11,14 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import ReportsIcon from '@material-ui/icons/Assignment';
+import EmployeesIcon from '@material-ui/icons/SupervisorAccount';
+import AddIcon from '@material-ui/icons/PersonAdd';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 const styles = theme => ({
-  // appBarShift: {
-  //   marginLeft: drawerWidth,
-  //   width: `calc(100% - ${drawerWidth}px)`,
-  //   transition: theme.transitions.create(['width', 'margin'], {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.enteringScreen,
-  //   }),
-  // },
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
@@ -62,6 +56,24 @@ const styles = theme => ({
 });
 
 class DrawerMenu extends Component {
+  menuList = [
+    {
+      name: 'Employees',
+      path: '/employee/list',
+      icon: <EmployeesIcon />,
+    },
+    {
+      name: 'Add Employee',
+      path: '/employee/add',
+      icon: <AddIcon />,
+    },
+    {
+      name: 'Reports',
+      path: '/employee/reports',
+      icon: <ReportsIcon />,
+    },
+  ];
+
   render() {
     const { handleDrawerClose, drawerOpen, classes, theme } = this.props;
 
@@ -88,21 +100,18 @@ class DrawerMenu extends Component {
           </div>
           <Divider />
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
+            {this.menuList.map(({ name, icon, path }, index) => (
+              <ListItem button component={Link} to={path} key={name}>
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={name} />
               </ListItem>
             ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            {/* {['Employees', 'Add Employee', 'Reports'].map((text, index) => (
+              <ListItem button component={Link} to={index === 0 ? '/employee/list' : '/employee/add'} key={text}>
+                <ListItemIcon>{index % 2 === 0 ? <SupervisorAccountIcon /> : <AssignmentIcon />}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
-            ))}
+            ))} */}
           </List>
         </Drawer>
       </React.Fragment>
