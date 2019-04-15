@@ -17,26 +17,13 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  avatar: {
-    type: String,
-  },
-  date: {
+  registered: {
     type: Date,
     default: Date.now,
   },
-  isStaff: {
-    type: Boolean,
-    default: false,
-  },
   active: {
     type: Boolean,
-    default: false,
-  },
-  activeToken: {
-    type: String,
-  },
-  activeExpires: {
-    type: Date,
+    default: true,
   },
 });
 

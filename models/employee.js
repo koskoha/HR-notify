@@ -12,6 +12,11 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  phone: Number,
+  email: {
+    type: String,
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/],
+  },
   address: {
     type: String,
     required: true,

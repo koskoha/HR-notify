@@ -106,12 +106,6 @@ class DrawerMenu extends Component {
                 <ListItemText primary={name} />
               </ListItem>
             ))}
-            {/* {['Employees', 'Add Employee', 'Reports'].map((text, index) => (
-              <ListItem button component={Link} to={index === 0 ? '/employee/list' : '/employee/add'} key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <SupervisorAccountIcon /> : <AssignmentIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))} */}
           </List>
         </Drawer>
       </React.Fragment>

@@ -11,10 +11,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { logoutUser } from '../../actions/account/authActions';
-import Search from './Search';
+// import Search from './Search';
 import ProfileMenu from './ProfileMenu';
 import DrawerMenu from './DrawerMenu';
-import EmployeeTable from '../employees/EmployeeTable';
 
 const drawerWidth = 240;
 
@@ -102,7 +101,7 @@ class BaseLayout extends React.Component {
   render() {
     const { drawerOpen } = this.state;
     // eslint-disable-next-line no-shadow
-    const { classes, auth, children, logoutUser, history } = this.props;
+    const { classes, auth, children, logoutUser } = this.props;
     return (
       <div className={classes.root}>
         <AppBar
@@ -118,7 +117,7 @@ class BaseLayout extends React.Component {
               Hello, {auth.user.name}
             </Typography>
 
-            <Search />
+            {/* <Search /> */}
 
             <ProfileMenu
               handleMobileMenuOpen={this.handleMobileMenuOpen}
@@ -133,7 +132,7 @@ class BaseLayout extends React.Component {
 
         <DrawerMenu drawerOpen={drawerOpen} handleDrawerClose={this.handleDrawerClose} />
 
-        {children || history.push('/employee/list')}
+        {children}
       </div>
     );
   }

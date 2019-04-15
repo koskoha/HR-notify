@@ -5,7 +5,6 @@ import { Route, Redirect } from 'react-router-dom';
 import Header from '../header/Header';
 import EmployeeTable from '../employees/EmployeeTable';
 import AddEmployeeForm from '../employees/AddEmployeeForm';
-import PageNotFound from '../NotFound';
 import Reports from '../employees/Reports';
 
 const styles = theme => ({});
@@ -18,7 +17,6 @@ class BaseLayout extends Component {
         <Route exact path={`${match.url}/list`} component={EmployeeTable} />
         <Route exact path={`${match.url}/add`} component={AddEmployeeForm} />
         <Route exact path={`${match.url}/reports`} component={Reports} />
-        {/* <Route path={`${match.url}/*`} component={Reports} /> */}
         <Redirect to={`${match.url}/list`} />
       </Header>
     );

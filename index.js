@@ -2,11 +2,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const passport = require('passport');
 const morgan = require('morgan');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
-const flash = require('connect-flash');
 const keys = require('./config/keys');
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
@@ -33,12 +31,10 @@ if (!isProduction) {
 }
 
 require('./models/user');
-// require('./services/passport');
-// Passport Config
-require('./auth/passport')(passport);
+require('./models/employee');
+require('./models/notification');
 
-const secureRoute = require('./routes/secure-routes');
-const auth = require('./routes/authRoutes');
+const router = require('./routes');
 
 if (isProduction) {
   // eslint-disable-next-line global-require
@@ -50,10 +46,7 @@ if (isProduction) {
   });
 }
 
-// app.use('/', authRoutes);
-app.use('/api', auth);
-// We plugin our jwt strategy as a middleware so only verified users can access this route
-app.use('/', passport.authenticate('jwt', { session: false }), secureRoute);
+app.use('/api', router);
 
 if (!isProduction) {
   app.use((err, req, res) => {
