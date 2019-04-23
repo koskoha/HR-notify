@@ -20,6 +20,7 @@ import ImageIcon from '@material-ui/icons/Image';
 const styles = theme => ({
   root: {
     width: '100%',
+    marginTop: 15,
   },
   heading: {
     fontSize: theme.typography.pxToRem(17),
@@ -73,7 +74,7 @@ function NotificationItem(props) {
   } = props;
   return (
     <div className={classes.root}>
-      <ExpansionPanel defaultExpanded>
+      <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <div className={classes.column}>
             <Typography className={classes.heading}>{`Anniversary date for ${_employee.fullName}`}</Typography>
@@ -86,19 +87,43 @@ function NotificationItem(props) {
               <ListItemIcon>
                 <ImageIcon />
               </ListItemIcon>
-              <ListItemText primary="Single-line item" />
+              <ListItemText primary="SSN: " />
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <ImageIcon />
               </ListItemIcon>
-              <ListItemText primary="Single-line item" />
+              <ListItemText primary="Hiring Date: " />
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <ImageIcon />
               </ListItemIcon>
-              <ListItemText primary="Single-line item" />
+              <ListItemText primary="Contract Name: " />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <ImageIcon />
+              </ListItemIcon>
+              <ListItemText primary="Vocation Amount per Year: " />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <ImageIcon />
+              </ListItemIcon>
+              <ListItemText primary="Prorated Vocation Amount: " />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <ImageIcon />
+              </ListItemIcon>
+              <ListItemText primary="Hourly Rate: " />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <ImageIcon />
+              </ListItemIcon>
+              <ListItemText primary="Status: " />
             </ListItem>
           </List>
         </ExpansionPanelDetails>
