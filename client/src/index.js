@@ -5,7 +5,7 @@ import './index.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
-import { setCurrentUser, logoutUser } from './actions/account/authActions';
+import { setCurrentUser, logoutUser } from './actions/authActions';
 import setAuthTokenInHeader from './utils/setAuthTokenInHeader';
 import App from './components/App';
 import store from './store';
@@ -13,6 +13,7 @@ import { API_BASE_URL } from './config';
 
 // Set base URL in request
 axios.defaults.baseURL = API_BASE_URL;
+axios.timeout = 10000;
 // Check the token
 if (localStorage.jwtToken) {
   // Set token header in Axios

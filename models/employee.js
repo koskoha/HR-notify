@@ -4,33 +4,42 @@ const { Schema } = mongoose;
 
 // Create Schema
 const UserSchema = new Schema({
-  firstName: {
+  fullName: {
     type: String,
     required: true,
   },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  phone: Number,
-  email: {
-    type: String,
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/],
-  },
-  address: {
-    type: String,
-    required: true,
-  },
+  ssn: String,
   anniversaryDate: {
     type: Date,
+    required: true,
   },
-  hiredDate: {
+  hiringDate: {
     type: Date,
-    default: Date.now,
+    required: true,
+  },
+  contractName: {
+    type: String,
+    required: true,
+  },
+  vacationAmtPerYear: {
+    type: Number,
+    required: true,
+  },
+  proratedVacationAmt: {
+    type: Number,
+    required: true,
+  },
+  hourlyRate: {
+    type: Number,
+    required: true,
   },
   added: {
     type: Date,
     default: Date.now,
+  },
+  status: {
+    type: String,
+    default: 'Active',
   },
   active: {
     type: Boolean,

@@ -13,8 +13,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ReportsIcon from '@material-ui/icons/Assignment';
 import EmployeesIcon from '@material-ui/icons/SupervisorAccount';
+import Badge from '@material-ui/core/Badge';
 import AddIcon from '@material-ui/icons/PersonAdd';
 import { Link } from 'react-router-dom';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 
 const drawerWidth = 240;
 
@@ -68,11 +70,25 @@ class DrawerMenu extends Component {
       icon: <AddIcon />,
     },
     {
+      name: 'Notifications',
+      path: '/employee/notifications',
+      icon: <NotificationsIcon />,
+      badge: true,
+    },
+    {
       name: 'Reports',
       path: '/employee/reports',
       icon: <ReportsIcon />,
     },
   ];
+
+  notificationMenuItem = () => (
+    <IconButton component={Link} to="/employee/notifications" color="inherit">
+      <Badge badgeContent={11} color="secondary">
+        <NotificationsIcon />
+      </Badge>
+    </IconButton>
+  );
 
   render() {
     const { handleDrawerClose, drawerOpen, classes, theme } = this.props;
@@ -100,9 +116,15 @@ class DrawerMenu extends Component {
           </div>
           <Divider />
           <List>
-            {this.menuList.map(({ name, icon, path }, index) => (
+            {this.menuList.map(({ name, icon, path, badge }, index) => (
               <ListItem button component={Link} to={path} key={name}>
-                <ListItemIcon>{icon}</ListItemIcon>
+                {badge ? (
+                  <Badge badgeContent={11} color="secondary">
+                    <ListItemIcon>{icon}</ListItemIcon>
+                  </Badge>
+                ) : (
+                  <ListItemIcon>{icon}</ListItemIcon>
+                )}
                 <ListItemText primary={name} />
               </ListItem>
             ))}

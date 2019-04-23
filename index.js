@@ -6,6 +6,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
 const keys = require('./config/keys');
+const dbCheckScheduler = require('./services/scheduler');
+const dbCheckSchedulerTest = require('./services/schedulerTest');
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 mongoose.connection.on('error', error => console.log(error));
@@ -30,6 +32,9 @@ if (!isProduction) {
   app.use(errorHandler());
 }
 
+dbCheckScheduler.start();
+dbCheckSchedulerTest();
+
 require('./models/user');
 require('./models/employee');
 require('./models/notification');
@@ -48,29 +53,29 @@ if (isProduction) {
 
 app.use('/api', router);
 
-if (!isProduction) {
-  app.use((err, req, res) => {
-    res.status(err.status || 500);
+// if (!isProduction) {
+//   app.use((err, req, res) => {
+//     res.status(err.status || 500);
 
-    res.json({
-      errors: {
-        message: err.message,
-        error: err,
-      },
-    });
-  });
-}
+//     res.json({
+//       errors: {
+//         message: err.message,
+//         error: err,
+//       },
+//     });
+//   });
+// }
 
-app.use((err, req, res) => {
-  res.status(err.status || 500);
+// app.use((err, req, res) => {
+//   res.status(err.status || 500);
 
-  res.json({
-    errors: {
-      message: err.message,
-      error: {},
-    },
-  });
-});
+//   res.json({
+//     errors: {
+//       message: err.message,
+//       error: {},
+//     },
+//   });
+// });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

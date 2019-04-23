@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { logoutUser } from '../../actions/account/authActions';
+import { logoutUser } from '../../actions/authActions';
 // import Search from './Search';
 import ProfileMenu from './ProfileMenu';
 import DrawerMenu from './DrawerMenu';

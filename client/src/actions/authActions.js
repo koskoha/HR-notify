@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from '../types';
-import setAuthTokenInHeader from '../../utils/setAuthTokenInHeader';
+import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from './types';
+import setAuthTokenInHeader from '../utils/setAuthTokenInHeader';
 
 const validate = data => dispatch => {
   const { email, name, password, password2 } = data;

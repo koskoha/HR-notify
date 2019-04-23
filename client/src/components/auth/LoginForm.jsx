@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import alert from 'sweetalert2';
 import KFAccountInput from './KFAccountInput';
-import { loginUser, clearErrors } from '../../actions/account/authActions';
+import { loginUser, clearErrors } from '../../actions/authActions';
 
 const styles = theme => ({
   container: {
