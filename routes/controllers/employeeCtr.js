@@ -26,17 +26,6 @@ exports.getAllEmployees = async (req, res, next) => {
   }
 };
 
-exports.getNotifications = async (req, res, next) => {
-  try {
-    const notifications = await Notification.find({ _user: req.user.id, notified: true }, { __v: 0 }).populate(
-      '_employee'
-    );
-    return res.json(notifications);
-  } catch (err) {
-    res.status(422).send(normalizeErrors(err));
-  }
-};
-
 exports.deleteEmployee = (req, res) => {
   const { id } = req.params;
   Employee.findById(id, (err, foundEmployee) => {

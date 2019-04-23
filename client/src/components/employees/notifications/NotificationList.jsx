@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import NotificationItem from './NotificationItem';
+import { markDone } from '../../../actions/notificationActions';
 
 const styles = theme => ({
   toolbar: {
@@ -20,9 +21,16 @@ const styles = theme => ({
 });
 
 class NotificationList extends Component {
+  handleNotificationDone = id => {
+    const { markDone } = this.props;
+    markDone(id);
+  };
+
   renderNotifications = () => {
     const { notifications } = this.props;
-    return notifications.map(notification => <NotificationItem notification={notification} />);
+    return notifications.map(notification => (
+      <NotificationItem key={notification._id} notification={notification} markDone={this.handleNotificationDone} />
+    ));
   };
 
   render() {
@@ -42,6 +50,7 @@ NotificationList.defaultProps = {
 
 NotificationList.propTypes = {
   classes: PropTypes.object.isRequired,
+  markDone: PropTypes.func.isRequired,
   notifications: PropTypes.array,
 };
 
@@ -51,6 +60,6 @@ export default compose(
   withStyles(styles),
   connect(
     mapStateToProps,
-    undefined
+    { markDone }
   )
 )(NotificationList);

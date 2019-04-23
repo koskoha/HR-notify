@@ -11,9 +11,9 @@ export default function clientsReducers(state = [], action) {
     // case clientActions.REMOVE_EMPLOYEE: {
     //   return state.filter(client => client._id !== action.payload);
     // }
-    // case clientActions.UPDATE_EMPLOYEE: {
-    //   return state;
-    // }
+    case clientActions.MARK_DONE: {
+      return state;
+    }
     default:
       return state;
   }

@@ -10,7 +10,6 @@ const dbCheck = new CronJob('05 00 00 * * *', function() {
   Employee.find(query, { __v: 0 }).then(employees => {
     employees.forEach(empl => {
       const notification = new Notification({
-        info: `New Anniversary for ${empl.fullName}`,
         _employee: empl._id,
         _user: empl._user,
       });
