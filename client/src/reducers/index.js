@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import authReducer from './account/authReducers';
-import errorReducer from './account/errorReducer';
+import errorReducer from './errorReducer';
 import employeeReducer from './employeeReducer';
 import notificationReducers from './notificationReducers';
 

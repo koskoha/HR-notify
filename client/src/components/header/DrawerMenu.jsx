@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import IconButton from '@material-ui/core/IconButton';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -91,7 +93,7 @@ class DrawerMenu extends Component {
   );
 
   render() {
-    const { handleDrawerClose, drawerOpen, classes, theme } = this.props;
+    const { handleDrawerClose, drawerOpen, classes, theme, notificationsAmount } = this.props;
 
     return (
       <React.Fragment>
@@ -119,7 +121,7 @@ class DrawerMenu extends Component {
             {this.menuList.map(({ name, icon, path, badge }, index) => (
               <ListItem button component={Link} to={path} key={name}>
                 {badge ? (
-                  <Badge badgeContent={11} color="secondary">
+                  <Badge badgeContent={notificationsAmount} color="secondary">
                     <ListItemIcon>{icon}</ListItemIcon>
                   </Badge>
                 ) : (
@@ -139,4 +141,12 @@ DrawerMenu.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(DrawerMenu);
+const mapStateToProps = ({ notifications }) => ({ notificationsAmount: notifications.length });
+
+export default compose(
+  withStyles(styles, { withTheme: true }),
+  connect(
+    mapStateToProps,
+    undefined
+  )
+)(DrawerMenu);

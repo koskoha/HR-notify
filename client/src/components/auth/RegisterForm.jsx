@@ -149,8 +149,6 @@ class RegisterForm extends Component {
 
 RegisterForm.propTypes = {
   registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   clearErrors: PropTypes.func.isRequired,
 };

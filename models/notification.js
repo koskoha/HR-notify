@@ -4,9 +4,7 @@ const { Schema } = mongoose;
 
 // Create Schema
 const UserSchema = new Schema({
-  notified: { type: Boolean, default: true },
-  info: String,
-  infoDate: { type: Date, default: Date.now },
+  done: { type: Boolean, default: false },
   _employee: { type: Schema.Types.ObjectId, ref: 'employee' },
   _user: { type: Schema.Types.ObjectId, ref: 'user' },
 });

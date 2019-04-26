@@ -1,4 +1,4 @@
-import * as clientActions from '../actions/types';
+import * as clientActions from '../actions/types/employeeTypes';
 
 export default function clientsReducers(state = [], action) {
   switch (action.type) {

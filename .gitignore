@@ -63,3 +63,5 @@ typings/
 # dev.js 
 package-lock.json
 
+./config/dev.js
+

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UPDATE_EMPLOYEE, ADD_EMPLOYEE, REMOVE_EMPLOYEE, GET_EMPLOYEES, GET_ERRORS } from './types';
+import { UPDATE_EMPLOYEE, ADD_EMPLOYEE, REMOVE_EMPLOYEE, GET_EMPLOYEES, GET_ERRORS } from './types/employeeTypes';
 
 const rejectPromise = resError => {
   console.error(resError);

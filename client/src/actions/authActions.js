@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from './types';
+import { GET_ERRORS, SET_CURRENT_USER, CLEAR_ERRORS } from './types/employeeTypes';
 import setAuthTokenInHeader from '../utils/setAuthTokenInHeader';
 
 const validate = data => dispatch => {

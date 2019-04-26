@@ -11,6 +11,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { logoutUser } from '../../actions/authActions';
+import { getNotifications } from '../../actions/notificationActions';
 // import Search from './Search';
 import ProfileMenu from './ProfileMenu';
 import DrawerMenu from './DrawerMenu';
@@ -58,6 +59,11 @@ class BaseLayout extends React.Component {
     drawerOpen: false,
     anchorEl: null,
     mobileMoreAnchorEl: null,
+  };
+
+  componentDidMount = () => {
+    const { getNotifications } = this.props;
+    getNotifications();
   };
 
   renderDrawerBtn = (classes, drawerOpen) => (
@@ -141,9 +147,9 @@ class BaseLayout extends React.Component {
 BaseLayout.propTypes = {
   classes: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
+  getNotifications: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   children: PropTypes.array,
-  history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -155,6 +161,6 @@ export default compose(
   withStyles(styles),
   connect(
     mapStateToProps,
-    { logoutUser }
+    { logoutUser, getNotifications }
   )
 )(BaseLayout);

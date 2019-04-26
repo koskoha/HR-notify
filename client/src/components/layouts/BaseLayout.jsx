@@ -9,19 +9,26 @@ import EditEmployee from '../employees/EditEmployee';
 import NotificationList from '../employees/notifications/NotificationList';
 import Reports from '../employees/Reports';
 
-const styles = theme => ({});
+const styles = theme => ({
+  root: {
+    backgroundColor: '#eeeeee',
+    width: '100%',
+    height: '100vh',
+  },
+});
 
 class BaseLayout extends Component {
   render() {
-    const { match } = this.props;
+    const { classes, match } = this.props;
     return (
       <Header {...this.props}>
-        <Route exact path={`${match.url}/list`} component={EmployeeTable} />
-        <Route exact path={`${match.url}/add`} component={AddEmployee} />
-        <Route exact path={`${match.url}/:id/edit`} component={EditEmployee} />
-        <Route exact path={`${match.url}/notifications`} component={NotificationList} />
-        <Route exact path={`${match.url}/reports`} component={Reports} />
-        {/* <Redirect to={`${match.url}/list`} /> */}
+        <div className={classes.root}>
+          <Route exact path={`${match.url}/list`} component={EmployeeTable} />
+          <Route exact path={`${match.url}/add`} component={AddEmployee} />
+          <Route exact path={`${match.url}/:id/edit`} component={EditEmployee} />
+          <Route exact path={`${match.url}/notifications`} component={NotificationList} />
+          <Route exact path={`${match.url}/reports`} component={Reports} />
+        </div>
       </Header>
     );
   }

@@ -17,7 +17,6 @@ const schedulerTest = () => {
   // console.log('query:', query);
 
   Employee.find(query, { __v: 0 }).then(employees => {
-    // console.log('employees:', employees);
     employees.forEach(empl => {
       const notification = new Notification({
         info: `New Anniversary for ${empl.fullName}`,

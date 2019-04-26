@@ -33,7 +33,7 @@ if (!isProduction) {
 }
 
 dbCheckScheduler.start();
-dbCheckSchedulerTest();
+// dbCheckSchedulerTest();
 
 require('./models/user');
 require('./models/employee');
