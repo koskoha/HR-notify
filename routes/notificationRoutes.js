@@ -5,6 +5,6 @@ const router = express.Router();
 const notificationCtr = require('./controllers/notificationCtr');
 
 router.get('/', notificationCtr.getNotifications);
-router.patch('/:id', notificationCtr.markDone);
+router.patch('/:id/done', notificationCtr.markDone);
 
 module.exports = router;

@@ -4,4 +4,5 @@ module.exports = {
   mongoURI: process.env.MONGO_URI,
   cookieKey: process.env.COOKIE_KEY,
   frontendHost: '',
+  sendGridKey: process.env.SEND_GRID_KEY,
 };
