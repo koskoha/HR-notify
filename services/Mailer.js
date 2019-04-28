@@ -14,16 +14,16 @@ class Mailer extends helper.Mail {
     this.recipient = new helper.Email('kos.koha@gmail.com');
 
     this.addContent(this.body);
-    this.addRecipients();
+    this.addRecipient();
   }
 
-  addRecipient = () => {
+  addRecipient() {
     const personalize = new helper.Personalization();
     personalize.addTo(this.recipient);
     this.addPersonalization(personalize);
-  };
+  }
 
-  send = async () => {
+  async send() {
     const request = this.sgApi.emptyRequest({
       method: 'POST',
       path: '/v3/mail/send',
@@ -31,7 +31,7 @@ class Mailer extends helper.Mail {
     });
     const response = await this.sgApi.API(request);
     return response;
-  };
+  }
 }
 
 module.exports = Mailer;

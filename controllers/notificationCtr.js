@@ -14,7 +14,7 @@ function normalizeErrors(errors) {
   return normalizeErrors;
 }
 
-exports.getNotifications = async (req, res, next) => {
+exports.getUndoneNotifications = async (req, res, next) => {
   try {
     const notifications = await Notification.find({ _user: req.user.id, done: false }, { __v: 0 }).populate(
       '_employee'

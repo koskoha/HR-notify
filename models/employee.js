@@ -41,9 +41,9 @@ const UserSchema = new Schema({
     type: String,
     default: 'Active',
   },
-  active: {
+  deleted: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   _user: { type: Schema.Types.ObjectId, ref: 'user' },
 });

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const crypto = require('crypto');
 // const mailer = require('./../../utils/mailer');
-const keys = require('../../config/keys');
+const keys = require('../config/keys');
 // const { authLimiter } = require('../../middlewares/rateLimit');
 const {
   emailexist,
@@ -15,12 +15,12 @@ const {
   notactive,
   pwdincorrect,
   emailnotfound,
-} = require('../../validation/errMessages');
+} = require('../validation/errMessages');
 // Load Input Validation
-const validationRegisterInput = require('../../validation/register');
-const validationLoginInput = require('../../validation/login');
+const validationRegisterInput = require('../validation/register');
+const validationLoginInput = require('../validation/login');
 
-const User = require('../../models/user');
+const User = require('../models/user');
 
 const registerUser = async (req, res) => {
   const { errors, isValid } = validationRegisterInput(req.body);

@@ -3,7 +3,7 @@ const router = require('express').Router();
 const passport = require('passport');
 require('../auth/passport')(passport);
 
-const employeeRoutes = require('./employeeRoutes');
+const employeeRoutes = require('./EmployeeRoutes');
 const notificationRoutes = require('./notificationRoutes');
 const authRoutes = require('./authRoutes');
 

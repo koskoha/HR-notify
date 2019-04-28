@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const employeeCtr = require('./controllers/employeeCtr');
+const employeeCtr = require('../controllers/employeeCtr');
 
 router.get('/list', employeeCtr.getAllEmployees);
 router.post('/add', employeeCtr.addEmployee);

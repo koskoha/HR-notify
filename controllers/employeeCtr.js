@@ -1,10 +1,9 @@
 /* eslint-disable no-multi-assign */
 const mongoose = require('mongoose');
 
-const { employeesNotFound, employeeCreateError } = require('../../validation/errMessages');
+const { employeesNotFound, employeeCreateError } = require('../validation/errMessages');
 
 const Employee = mongoose.model('employee');
-const Notification = mongoose.model('notification');
 
 function normalizeErrors(errors) {
   const normalizeError = [];
@@ -19,7 +18,7 @@ function normalizeErrors(errors) {
 
 exports.getAllEmployees = async (req, res, next) => {
   try {
-    const employees = await Employee.find({ _user: req.user.id, active: true }, { __v: 0 });
+    const employees = await Employee.find({ _user: req.user.id, deleted: false }, { __v: 0 });
     return res.json(employees);
   } catch (err) {
     res.status(422).send(err);
@@ -32,7 +31,7 @@ exports.deleteEmployee = (req, res) => {
     if (err) {
       return res.status(422).send(normalizeErrors(err));
     }
-    foundEmployee.set({ ...foundEmployee, active: false });
+    foundEmployee.set({ ...foundEmployee, deleted: true });
     foundEmployee.save(err => {
       if (err) {
         return res.status(422).send(normalizeErrors(err));
@@ -62,16 +61,6 @@ exports.updateEmployee = (req, res) => {
   });
 };
 
-// exports.getEmployeeById = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const foundEmployee = await Employee.findById(id);
-//     res.json(foundEmployee);
-//   } catch (err) {
-//     res.status(422).send(normalizeErrors(err));
-//   }
-// };
-
 exports.addEmployee = async (req, res, next) => {
   const {
     fullName,
@@ -97,6 +86,8 @@ exports.addEmployee = async (req, res, next) => {
       hiringDate,
       _user: req.user.id,
     });
+
+    console.log(anniversaryDate);
 
     const newEmployee = await employee.save();
     if (newEmployee) {

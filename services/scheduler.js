@@ -1,16 +1,25 @@
 /* eslint-disable no-console */
 const { CronJob } = require('cron');
-const startOfToday = require('date-fns/start_of_today');
-const endOfToday = require('date-fns/end_of_today');
+const getDayOfYear = require('date-fns/get_day_of_year');
 const Employee = require('../models/employee');
 const Notification = require('../models/notification');
 const Mailer = require('./Mailer');
 const anniversaryTemplate = require('../services/emailTemplates/anniversaryTemplate');
 
-const dbCheck = new CronJob('00 05 * * *', function() {
+const dbCheck = new CronJob('00 06 * * *', function() {
   console.log('Scheduler has started.');
-  const query = { anniversaryDate: { $gte: startOfToday(), $lt: endOfToday() }, active: true };
-  Employee.find(query, { __v: 0 }).then(employees => {
+  const dayOfYear = getDayOfYear(new Date());
+  Employee.aggregate([
+    { $match: { active: true } },
+    {
+      $redact: {
+        $cond: [{ $eq: [{ $dayOfYear: '$anniversaryDate' }, dayOfYear] }, '$$KEEP', '$$PRUNE'],
+      },
+    },
+  ]).exec((err, employees) => {
+    if (err) {
+      console.log(err);
+    }
     employees.forEach(employee => {
       const notification = new Notification({
         _employee: employee._id,

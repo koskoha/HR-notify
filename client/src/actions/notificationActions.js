@@ -23,7 +23,7 @@ export const getNotifications = () => async dispatch => {
 
 export const markDone = notificationId => async dispatch => {
   try {
-    await axios.patch(`/employee/notifications/${notificationId}`);
+    await axios.patch(`/employee/notifications/${notificationId}/done`);
     dispatch({ type: MARK_DONE, payload: notificationId });
     // return res.data;
   } catch (error) {
