@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "9"
+dist: trusty
+services:
+  - mongodb
+env:
+  - NODE_ENV=dev
+cache:
+  - node_modules
+  - client/node_modules
+install:
+  - npm install
+  - npm run build
