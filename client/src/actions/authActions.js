@@ -72,7 +72,7 @@ export const registerUser = (userData, history) => dispatch => {
     sessionStorage.setItem('unactivatedEmail', userData.email);
     axios({
       method: 'post',
-      url: '/auth/register',
+      url: '/api/auth/register',
       data: userData,
     })
       .then(() => history.push('/employee/list'))
@@ -94,7 +94,7 @@ export const setCurrentUser = decoded => ({
 // Login and get the token
 export const loginUser = userData => dispatch => {
   axios
-    .post('/auth/login', userData)
+    .post('/api/auth/login', userData)
     .then(res => {
       const { token } = res.data;
       // Save to localStorage
@@ -123,7 +123,7 @@ export const logoutUser = () => dispatch => {
 
 export const getCurrentUserInfo = () => dispatch => {
   axios
-    .get('/current')
+    .get('/api/current')
     .then(res => {
       dispatch(setCurrentUser(res.data));
     })

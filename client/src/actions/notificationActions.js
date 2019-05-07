@@ -14,7 +14,7 @@ const rejectPromise = resError => {
 
 export const getNotifications = () => async dispatch => {
   try {
-    const res = await axios.get('/employee/notifications');
+    const res = await axios.get('/api/employee/notifications');
     dispatch({ type: GET_NOTIFICATIONS, payload: res.data });
   } catch (error) {
     rejectPromise(error);
@@ -23,7 +23,7 @@ export const getNotifications = () => async dispatch => {
 
 export const markDone = notificationId => async dispatch => {
   try {
-    await axios.patch(`/employee/notifications/${notificationId}/done`);
+    await axios.patch(`/api/employee/notifications/${notificationId}/done`);
     dispatch({ type: MARK_DONE, payload: notificationId });
     // return res.data;
   } catch (error) {

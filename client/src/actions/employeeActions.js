@@ -14,7 +14,7 @@ const rejectPromise = resError => {
 
 export const getEmployees = () => async dispatch => {
   try {
-    const res = await axios.get('/employee/list');
+    const res = await axios.get('/api/employee/list');
     dispatch({ type: GET_EMPLOYEES, payload: res.data });
   } catch (err) {
     dispatch({
@@ -26,7 +26,7 @@ export const getEmployees = () => async dispatch => {
 
 export const addEmployee = employee => async dispatch => {
   try {
-    const res = await axios.post('/employee/add', employee);
+    const res = await axios.post('/api/employee/add', employee);
     dispatch({ type: ADD_EMPLOYEE, payload: res.data });
   } catch (err) {
     dispatch({
@@ -38,7 +38,7 @@ export const addEmployee = employee => async dispatch => {
 
 export const updateEmployee = employee => async dispatch => {
   try {
-    const res = await axios.patch(`/employee/${employee._id}`, employee);
+    const res = await axios.patch(`/api/employee/${employee._id}`, employee);
     dispatch({ type: UPDATE_EMPLOYEE, payload: res.data });
     return res.data;
   } catch (error) {
@@ -48,7 +48,7 @@ export const updateEmployee = employee => async dispatch => {
 
 export const deleteEmployee = employeeId => dispatch =>
   axios
-    .delete(`/employee/${employeeId}`)
+    .delete(`/api/employee/${employeeId}`)
     .then(res => {
       dispatch({ type: REMOVE_EMPLOYEE, payload: employeeId });
       return res.data;
