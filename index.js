@@ -41,6 +41,8 @@ require('./models/notification');
 
 const router = require('./routes');
 
+app.use('/api', router);
+
 if (isProduction) {
   // eslint-disable-next-line global-require
   const path = require('path');
@@ -50,8 +52,6 @@ if (isProduction) {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
-app.use('/api', router);
 
 // if (!isProduction) {
 //   app.use((err, req, res) => {
