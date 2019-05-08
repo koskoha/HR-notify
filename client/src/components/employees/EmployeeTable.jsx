@@ -58,7 +58,6 @@ EmployeeTable.propTypes = {
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   getEmployees: PropTypes.func.isRequired,
-  getNotifications: PropTypes.func.isRequired,
   employees: PropTypes.array,
 };
 
