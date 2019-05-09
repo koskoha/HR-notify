@@ -6,11 +6,12 @@ const Notification = require('../models/notification');
 const Mailer = require('./Mailer');
 const anniversaryTemplate = require('../services/emailTemplates/anniversaryTemplate');
 
-const dbCheck = new CronJob('00 06 * * *', function() {
+const dbCheck = new CronJob('00 5 * * *', function() {
   console.log('Scheduler has started.');
   const dayOfYear = getDayOfYear(new Date());
   Employee.aggregate([
-    { $match: { active: true } },
+    { $match: { deleted: false } },
+    { $match: { status: 'active' } },
     {
       $redact: {
         $cond: [{ $eq: [{ $dayOfYear: '$anniversaryDate' }, dayOfYear] }, '$$KEEP', '$$PRUNE'],

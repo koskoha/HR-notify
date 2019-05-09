@@ -87,11 +87,9 @@ exports.addEmployee = async (req, res, next) => {
       _user: req.user.id,
     });
 
-    console.log(anniversaryDate);
-
     const newEmployee = await employee.save();
     if (newEmployee) {
-      return res.json({ success: 'New Employee Added' });
+      return res.json(newEmployee);
     }
     return res.status(404).json({ error: 'Fail to add new employee' });
 

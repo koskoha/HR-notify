@@ -38,7 +38,6 @@ dbCheckScheduler.start();
 require('./models/user');
 require('./models/employee');
 require('./models/notification');
-
 const router = require('./routes');
 
 app.use('/api', router);
