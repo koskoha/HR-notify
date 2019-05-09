@@ -1,17 +1,17 @@
-import * as clientActions from '../actions/types/employeeTypes';
+import * as clientTypes from '../actions/types/employeeTypes';
 
 export default function clientsReducers(state = [], action) {
   switch (action.type) {
-    case clientActions.GET_EMPLOYEES: {
+    case clientTypes.GET_EMPLOYEES: {
       return [...action.payload];
     }
-    case clientActions.ADD_EMPLOYEE: {
+    case clientTypes.ADD_EMPLOYEE: {
       return [...state, action.payload];
     }
-    case clientActions.REMOVE_EMPLOYEE: {
+    case clientTypes.REMOVE_EMPLOYEE: {
       return state.filter(client => client._id !== action.payload);
     }
-    case clientActions.UPDATE_EMPLOYEE: {
+    case clientTypes.UPDATE_EMPLOYEE: {
       return state;
     }
     default:

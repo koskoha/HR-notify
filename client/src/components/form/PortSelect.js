@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import { FormControl } from '@material-ui/core';
+import { FormControl, TextField, Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -16,7 +16,7 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     minWidth: 120,
     marginBottom: 20,
-    width: 600,
+    width: '98%',
   },
 });
 
@@ -26,6 +26,7 @@ const renderOptions = options => {
       {option}
     </MenuItem>
   ));
+
   return optionsList;
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import format from 'date-fns/format';
-import AddEmployee from '../../Toolbar/AddEmployee';
+import AddEmployee from '../Toolbar/AddEmployee';
 import ActionsComponent from '../ActionsComponent';
 
 export default {
