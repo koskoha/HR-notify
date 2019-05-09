@@ -21,7 +21,7 @@ const styles = theme => ({
 const validateInputs = values => {
   const errors = {};
   Object.entries(values).forEach(([key, value]) => {
-    if (!values[key] && key !== 'anniversaryDate') {
+    if (!values[key] && key !== 'deleted') {
       errors[key] = `Field is required!`;
     }
   });
