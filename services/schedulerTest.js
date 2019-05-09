@@ -8,11 +8,12 @@ const anniversaryTemplate = require('../services/emailTemplates/anniversaryTempl
 const schedulerTest = () => {
   console.log('Scheduler has started.');
   const dayOfYear = getDayOfYear(new Date());
+  console.log('dayOfYear:', dayOfYear);
   Employee.aggregate([
-    { $match: { active: true } },
+    // { $match: { active: true } },
     {
       $redact: {
-        $cond: [{ $eq: [{ $dayOfYear: '$anniversaryDate' }, dayOfYear + 1] }, '$$KEEP', '$$PRUNE'],
+        $cond: [{ $eq: [{ $dayOfYear: '$anniversaryDate' }, dayOfYear] }, '$$KEEP', '$$PRUNE'],
       },
     },
   ]).exec((err, employees) => {
@@ -27,9 +28,9 @@ const schedulerTest = () => {
 
       notification.save();
 
-      const mailer = new Mailer(employee, anniversaryTemplate(employee));
-      mailer.send();
-      console.log('message send successfully');
+      // const mailer = new Mailer(employee, anniversaryTemplate(employee));
+      // mailer.send();
+      // console.log('message send successfully');
     });
   });
 };
